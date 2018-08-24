@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start: MyString
+  end: MyString
+  creator: MyString
+  created: MyString
+  description: MyString
+  status: MyString
+  repeating: false
+  etag: MyString
+  url: MyString
+  eventid: MyString
+
+two:
+  start: MyString
+  end: MyString
+  creator: MyString
+  created: MyString
+  description: MyString
+  status: MyString
+  repeating: false
+  etag: MyString
+  url: MyString
+  eventid: MyString

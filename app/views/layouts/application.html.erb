@@ -15,7 +15,7 @@
     <%= yield %>
     <p><%= link_to "Sign in", user_google_oauth2_omniauth_authorize_path %></p>
     <p><%= link_to "Sign out", destroy_user_session_path, method: 'delete' %></p>
-    <p><%= link_to "Calendars", 'api/calendar', method: 'get' %></p>
+    <p><%= link_to "Calendars", '/api/calendars', method: 'get' %></p>
     <% if current_user.presence %>
       <p><%= p current_user.id %></p>
       <p><%= p current_user.first_name %></p>
