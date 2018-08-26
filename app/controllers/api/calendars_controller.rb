@@ -38,19 +38,28 @@ class Api::CalendarsController < ApplicationController
 			time_max: (Time.now + (1*7*24*60*60)).to_datetime.iso8601
 			)
 
-		@events = response.items
+		# @events = response.items
+		response.items
+	end
+
+	def clean_slate
+		Event.destroy_all
+		Attendee.destroy_all
 	end
 
 	def index
+		clean_slate
+
 		get_events
 
-		Event.destroy_all
-		@events.each do |event|
+		# @events.each do |event|
+		get_events.each do |event|
 			# binding.pry
 			response = "not_found"
-			# Event.new(event)
+			attendee_count = "0"
 
 			if event.attendees.presence #break this into its own model. Account for rooms.  Room model? ROOOOOOMMODEL!!!!!!
+				attendee_count = event.attendees.count
 				event.attendees.each do |attendee|
 					if attendee.self
 						response = attendee.response_status
@@ -69,6 +78,7 @@ class Api::CalendarsController < ApplicationController
 				user_uid: User.find_by(id: current_user.id).uid,
 				start_time: event.start.date_time,
 				end_time: event.end.date_time,
+				attendee_count: attendee_count,
 				creator: event.creator.email,
 				created: event.created,
 				summary: event.summary,

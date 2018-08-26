@@ -32,6 +32,15 @@ class User < ApplicationRecord
   	hours.round
   end
 
+  def total_attendees
+  	attendees = 0
+  	events.each do |event|
+  		attendees += event.attendee_count
+  	end
+
+  	attendees.round
+  end
+
   # def events
   # 	Event.where(user_uid: uid)
   # end

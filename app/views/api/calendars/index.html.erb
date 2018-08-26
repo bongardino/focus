@@ -3,7 +3,14 @@
 <h1> This week : </h1>
 <h3>Time in meetings : <%= @user.total_hours %> hours</h3>
 <h3>Total meetings : <%= @user.events.count %></h3>
-
+<h3>You met with : <%= @user.total_attendees %> people</h3>
+<h3>You met with : <%= Attendee.count %> unique people</h3>
+<div class="input-group date" data-provide="datepicker">
+    <input type="text" class="form-control">
+    <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
+</div>
 <hr>
 <hr>
 <hr>
