@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   devise :trackable, :omniauthable, :timeoutable, omniauth_providers: [:google_oauth2]
+  has_many :events
 
   def self.from_omniauth(auth)
   	# p auth
-  	# add uid
   	uid = auth.uid.downcase
 
   	user = find_or_initialize_by uid: uid
@@ -32,8 +32,8 @@ class User < ApplicationRecord
   	hours.round
   end
 
-  def events
-  	Event.where(user_uid: uid)
-  end
+  # def events
+  # 	Event.where(user_uid: uid)
+  # end
 
 end

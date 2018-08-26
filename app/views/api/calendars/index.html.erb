@@ -1,8 +1,8 @@
-<%= line_chart User.group_by_day(:created_at).count %>
+<%= column_chart Event.group_by_day_of_week(:start_time, format: "%a").count, download: true %>
 <br>
 <h1> This week : </h1>
-<h5>Time in meetings : <%= @user.total_hours %></h5>
-<h5>Total meetings : <%= @user.events.count %></h5>
+<h3>Time in meetings : <%= @user.total_hours %> hours</h3>
+<h3>Total meetings : <%= @user.events.count %></h3>
 
 <hr>
 <hr>
