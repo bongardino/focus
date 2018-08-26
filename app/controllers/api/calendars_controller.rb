@@ -28,7 +28,6 @@ class Api::CalendarsController < ApplicationController
 		now = Time.now.iso8601
   	one_week = (Time.now + (1*7*24*60*60)).to_datetime.iso8601
 
-		# Fetch the next 10 events for the user
 		response = service.list_events(
 			calendar_id,
 			max_results: nil,
@@ -38,7 +37,6 @@ class Api::CalendarsController < ApplicationController
 			time_max: (Time.now + (1*7*24*60*60)).to_datetime.iso8601
 			)
 
-		# @events = response.items
 		response.items
 	end
 
@@ -50,11 +48,7 @@ class Api::CalendarsController < ApplicationController
 	def index
 		clean_slate
 
-		get_events
-
-		# @events.each do |event|
 		get_events.each do |event|
-			# binding.pry
 			response = "not_found"
 			attendee_count = "0"
 
@@ -72,7 +66,6 @@ class Api::CalendarsController < ApplicationController
 
 			# Move all of this nonsense into an Events method like a grown up
 
-
 			Event.create!(
 				user_id: current_user.id,
 				user_uid: User.find_by(id: current_user.id).uid,
@@ -89,11 +82,8 @@ class Api::CalendarsController < ApplicationController
 				uid: event.id
 				)
 		end
-		@user = current_user
-		@all_events = Event.all
-		@all_attendees = Attendee.all
-		# render 'index.json.jbuilder'
-		render 'index.html.erb'
+
+		redirect_to action: "show"
 	end
 
 	def show

@@ -41,7 +41,7 @@ class User < ApplicationRecord
   	attendees.round
   end
 
-  # def events
+  # def events_by_uid
   # 	Event.where(user_uid: uid)
   # end
 
