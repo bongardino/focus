@@ -1,13 +1,22 @@
 <%= line_chart User.group_by_day(:created_at).count %>
+<br>
+<h1> This week : </h1>
+<h5>Time in meetings : <%= @user.total_hours %></h5>
+<h5>Total meetings : <%= @user.events.count %></h5>
 
-
+<hr>
+<hr>
+<hr>
+<br>
 <% @all_events.each do |event| %>
+<li><b>summary:</b> <%= event.summary %></li>
 <li><b>user_id:</b> <%= event.user_id %></li>
-<li><b>start:</b> <%= event.start %></li>
-<li><b>end:</b> <%= event.end %></li>
+<li><b>user_uid:</b> <%= event.user_uid %></li>
+<li><b>start:</b> <%= event.start_time %></li>
+<li><b>end:</b> <%= event.end_time %></li>
+<li><b>duration:</b><%= event.duration %></li>
 <li><b>creator:</b> <%= event.creator %></li>
 <li><b>created:</b> <%= event.created %></li>
-<li><b>summary:</b> <%= event.summary %></li>
 <li><b>response:</b> <%= event.response %></li>
 <li><b>repeating:</b> <%= event.repeating %></li>
 <li><b>etag:</b> <%= event.etag %></li>

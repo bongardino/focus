@@ -45,8 +45,10 @@ class Api::CalendarsController < ApplicationController
 		get_events
 
 		Event.destroy_all
-		@events.each do |event| 
+		@events.each do |event|
+			# binding.pry
 			response = "not_found"
+			# Event.new(event)
 
 			if event.attendees.presence #break this into its own model. Account for rooms.  Room model? ROOOOOOMMODEL!!!!!!
 				event.attendees.each do |attendee|
@@ -58,27 +60,15 @@ class Api::CalendarsController < ApplicationController
 			end
 
 			# transition this to Event.find_or_create_by!(uid: "uid") to avoid overwriting data - NTH
+
 			# Move all of this nonsense into an Events method like a grown up
 
-			# Event.find_or_create_by!(uid: item.id) do |event|
-			# 	binding.pry
-			# 	event.user_id= item.id
-			# 	event.start= item.start.date_time
-			# 	event.end= item.end.date_time
-			# 	event.creator= item.creator.email
-			# 	event.created= item.created
-			# 	event.summary= item.summary
-			# 	event.response= response
-			# 	event.repeating= item.sequence
-			# 	event.etag= item.etag
-			# 	event.url= item.html_link
-			# 	event.uid= item.id
-			# end
 
 			Event.create!(
 				user_id: current_user.id,
-				start: event.start.date_time,
-				end: event.end.date_time,
+				user_uid: User.find_by(id: current_user.id).uid,
+				start_time: event.start.date_time,
+				end_time: event.end.date_time,
 				creator: event.creator.email,
 				created: event.created,
 				summary: event.summary,
@@ -89,9 +79,17 @@ class Api::CalendarsController < ApplicationController
 				uid: event.id
 				)
 		end
+		@user = current_user
 		@all_events = Event.all
 		@all_attendees = Attendee.all
 		# render 'index.json.jbuilder'
+		render 'index.html.erb'
+	end
+
+	def show
+		@user = current_user
+		@all_events = Event.all
+		@all_attendees = Attendee.all
 		render 'index.html.erb'
 	end
 

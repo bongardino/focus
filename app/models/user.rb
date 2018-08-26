@@ -2,7 +2,8 @@ class User < ApplicationRecord
   devise :trackable, :omniauthable, :timeoutable, omniauth_providers: [:google_oauth2]
 
   def self.from_omniauth(auth)
-  	p auth
+  	# p auth
+  	# add uid
   	uid = auth.uid.downcase
 
   	user = find_or_initialize_by uid: uid
@@ -17,25 +18,22 @@ class User < ApplicationRecord
   	user
   end
 
+  # def token_refresh
+  # 	User.find_by uid: uid
+  #   user.refresh_token = auth.credentials.refresh_token
+  # end
 
+  def total_hours
+  	hours = 0
+  	events.each do |event|
+  		hours += event.duration
+  	end
 
-	# def self.from_omniauth(auth)
-	# 	#i think this is double creating users.  fix it
-	# 	binding.pry
-	#   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-	#     data = auth.info
-	#     user = User.where(email: data['email']).first
-	#     unless user
-	#         user = User.create(
-	#         	 first_name: data['first_name'],
-	#         	 last_name: data['last_name'],
-	#            email: data['email'],
-	#            uid: auth.uid,
-	#            image_url: data['image']
-	#         )
-	#     end
-	#     user
-	#   end
-	# end
+  	hours.round
+  end
+
+  def events
+  	Event.where(user_uid: uid)
+  end
 
 end

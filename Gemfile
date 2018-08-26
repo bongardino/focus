@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'chartkick'
 
+gem 'time_difference'
+
 gem 'groupdate'
 
 gem 'figaro'

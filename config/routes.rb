@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
+    get '/calendars/show' => 'calendars#show'
     get '/calendars' => 'calendars#index'
   end
 
