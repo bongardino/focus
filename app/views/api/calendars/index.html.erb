@@ -1,0 +1,43 @@
+<%= column_chart Event.group_by_day_of_week(:start_time, format: "%a").count, download: true %>
+<br>
+<h1> This week : </h1>
+<h3>Time in meetings : <%= @user.total_hours %> hours</h3>
+<h3>Total meetings : <%= @user.events.count %></h3>
+<h3>You met with : <%= @user.total_attendees %> people</h3>
+<h3>You met with : <%= Attendee.count %> unique people</h3>
+<div class="input-group date" data-provide="datepicker">
+    <input type="text" class="form-control">
+    <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
+</div>
+<hr>
+<hr>
+<hr>
+<br>
+<% @all_events.each do |event| %>
+<li><b>summary:</b> <%= event.summary %></li>
+<li><b>user_id:</b> <%= event.user_id %></li>
+<li><b>user_uid:</b> <%= event.user_uid %></li>
+<li><b>start:</b> <%= event.start_time %></li>
+<li><b>end:</b> <%= event.end_time %></li>
+<li><b>duration:</b><%= event.duration %></li>
+<li><b>creator:</b> <%= event.creator %></li>
+<li><b>created:</b> <%= event.created %></li>
+<li><b>response:</b> <%= event.response %></li>
+<li><b>repeating:</b> <%= event.repeating %></li>
+<li><b>etag:</b> <%= event.etag %></li>
+<li><b>url:</b> <%= event.url %></li>
+<li><b>uid:</b> <%= event.uid %></li>
+<hr>
+<% end %>
+
+<hr>
+<hr>
+<hr>
+
+<% @all_attendees.each do |attendee| %>
+<li><b>email: </b><%= attendee.email %>
+<% end %>
+
+api/calendars/ index

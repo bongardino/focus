@@ -10,7 +10,8 @@ Devise.setup do |config|
 
   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {
     scope: "contacts.readonly, userinfo.profile, userinfo.email, calendar",
-    prompt: 'select_account',
+    prompt: 'consent',
+    select_account: true,
     access_type: 'offline'
   }
 end

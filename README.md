@@ -1,5 +1,19 @@
 # README
 
+todo - 
+
+google auth is working, google api call is working
+
+need to parse response for actual calendar data
+likely need to remake 
+	api/calendar controller
+	events controller
+
+	and relared views
+
+also ssl verification is broken but I think thats netskope
+
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 

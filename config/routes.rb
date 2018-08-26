@@ -6,5 +6,10 @@ Rails.application.routes.draw do
   	delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
 
+  namespace :api do
+    get '/calendars/show' => 'calendars#show'
+    get '/calendars' => 'calendars#index'
+  end
+
   root to: "home#show"
 end
