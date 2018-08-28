@@ -41,55 +41,66 @@ class Api::CalendarsController < ApplicationController
 	end
 
 	def clean_slate
-		Event.destroy_all
-		Attendee.destroy_all
+		# get rid of this, keep all your events
+			# attendee_events
+		# Event.destroy_all
+		# Attendee.destroy_all
 	end
 
 	def index
-		clean_slate
+		# clean_slate
 
+		json_success = []
 		get_events.each do |event|
-			response = "not_found"
-			attendee_count = "0"
-
-			if event.attendees.presence #break this into its own model. Account for rooms.  Room model? ROOOOOOMMODEL!!!!!!
-				attendee_count = event.attendees.count
-				event.attendees.each do |attendee|
-					if attendee.self
-						response = attendee.response_status
-					end
-					Attendee.find_or_create_by!(email: attendee.email)
-				end
+# replace this with find or create by, update existing events
+			if !Event.find_by(uid: event.id).nil?
+				new_event = Event.find_by(uid: event.id)
+			else
+				new_event = Event.new(
+					start_time: event.start.date_time,
+					end_time: event.end.date_time,
+					creator: event.creator.email,
+					created: event.created,
+					summary: event.summary,
+					repeating: event.sequence,
+					etag: event.etag,
+					url: event.html_link,
+					uid: event.id
+					)
 			end
 
-			# transition this to Event.find_or_create_by!(uid: "uid") to avoid overwriting data - NTH
 
-			# Move all of this nonsense into an Events method like a grown up
-
-			Event.create!(
-				user_id: current_user.id,
-				user_uid: User.find_by(id: current_user.id).uid,
-				start_time: event.start.date_time,
-				end_time: event.end.date_time,
-				attendee_count: attendee_count,
-				creator: event.creator.email,
-				created: event.created,
-				summary: event.summary,
-				response: response,
-				repeating: event.sequence,
-				etag: event.etag,
-				url: event.html_link,
-				uid: event.id
-				)
+			if new_event.valid?
+				# loop through attendees
+				if !event.attendees.nil?
+					event.attendees.each do |attendee|
+					# create attendee
+						new_attendee = Attendee.find_or_create_by(email: attendee.email)
+						if new_attendee.valid?
+					# create attendeeEvents relationship
+							new_attendee_event = AttendeeEvent.new(
+														attendee_id: new_attendee.id,
+														event_id: new_event.id,
+														status: attendee.response_status
+														)
+							if new_attendee_event.save
+								json_success << { success: "#{new_attendee.email} was attatched to attendee event id of #{new_attendee_event.id}" }
+							else
+								json_success << { error: "#{new_attendee_event.errors.full_messages}" }
+							end
+						end
+					end
+				end
+			end
 		end
-
-		redirect_to action: "show"
+		render json: { message: json_success }
+		# redirect_to action: "show"
 	end
 
 	def show
 		@user = current_user
 		@all_events = Event.all
-		@all_attendees = Attendee.all
+		# @all_attendees = Attendee.all
 		render 'index.html.erb'
 	end
 

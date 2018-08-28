@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   devise :trackable, :omniauthable, :timeoutable, omniauth_providers: [:google_oauth2]
-  has_many :events
+  has_many :user_events
+  has_many :events, through: :user_events
 
   def self.from_omniauth(auth)
   	# p auth
@@ -23,23 +24,23 @@ class User < ApplicationRecord
   #   user.refresh_token = auth.credentials.refresh_token
   # end
 
-  def total_hours
-  	hours = 0
-  	events.each do |event|
-  		hours += event.duration
-  	end
+  # def total_hours
+  # 	hours = 0
+  # 	events.each do |event|
+  # 		hours += event.duration
+  # 	end
 
-  	hours.round
-  end
+  # 	hours.round
+  # end
 
-  def total_attendees
-  	attendees = 0
-  	events.each do |event|
-  		attendees += event.attendee_count
-  	end
+  # def total_attendees
+  # 	attendees = 0
+  # 	events.each do |event|
+  # 		attendees += event.attendee_count
+  # 	end
 
-  	attendees.round
-  end
+  # 	attendees.round
+  # end
 
   # def events_by_uid
   # 	Event.where(user_uid: uid)
