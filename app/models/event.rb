@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
-	belongs_to :user
+	has_many :attendee_events
+  has_many :attendees, through: :attendee_events
 
 	def duration
 		if start_time.presence && end_time.presence
