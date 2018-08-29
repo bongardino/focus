@@ -5,17 +5,11 @@
 <h3>Total meetings : <%= @user.events.count %></h3>
 <h3>You met with : <%= @user.total_attendees %> people</h3>
 <h3>You met with : <%= Attendee.count %> unique people</h3>
-<div class="input-group date" data-provide="datepicker">
-    <input type="text" class="form-control">
-    <div class="input-group-addon">
-        <span class="glyphicon glyphicon-th"></span>
-    </div>
-</div>
 <hr>
 <hr>
 <hr>
 <br>
-<% @all_events.each do |event| %>
+<% @events.each do |event| %>
 <li><b>summary:</b> <%= event.summary %></li>
 <li><b>user_id:</b> <%= event.user_id %></li>
 <li><b>user_uid:</b> <%= event.user_uid %></li>
@@ -36,7 +30,7 @@
 <hr>
 <hr>
 
-<% @all_attendees.each do |attendee| %>
+<% @attendees.each do |attendee| %>
 <li><b>email: </b><%= attendee.email %>
 <% end %>
 
