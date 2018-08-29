@@ -6,7 +6,7 @@ class Api::CalendarsController < ApplicationController
   def google_secret
     Google::APIClient::ClientSecrets.new(
       { "web" =>
-        { "access_token" => current_user.token,
+        { "access_token" => current_user.token,											# notitfy if user not logged in
           "refresh_token" => current_user.refresh_token,
           "client_id" => ENV['GOOGLE_CLIENT_ID'],
           "client_secret" => ENV['GOOGLE_CLIENT_SECRET'],
@@ -52,8 +52,7 @@ class Api::CalendarsController < ApplicationController
 
 		json_success = []
 		get_events.each do |event|
-# replace this with find or create by, update existing events
-			if !Event.find_by(uid: event.id).nil?
+			if !Event.find_by(uid: event.id).nil?																		# replace this with find or create by, to update existing events instead of skipping them entirely
 				new_event = Event.find_by(uid: event.id)
 			else
 				new_event = Event.new(
@@ -65,19 +64,18 @@ class Api::CalendarsController < ApplicationController
 					repeating: event.sequence,
 					etag: event.etag,
 					url: event.html_link,
-					uid: event.id
+					uid: event.id,
+					user_id: current_user.id,
+					user_uid: current_user.uid
 					)
 			end
 
-
-			if new_event.valid?
-				# loop through attendees
+			if new_event.valid?																											# loop through attendees
+				new_event.save
 				if !event.attendees.nil?
 					event.attendees.each do |attendee|
-					# create attendee
-						new_attendee = Attendee.find_or_create_by(email: attendee.email)
-						if new_attendee.valid?
-					# create attendeeEvents relationship
+						new_attendee = Attendee.find_or_create_by(email: attendee.email)	# create attendee
+						if new_attendee.valid?																						# create attendeeEvents relationship
 							new_attendee_event = AttendeeEvent.new(
 														attendee_id: new_attendee.id,
 														event_id: new_event.id,
@@ -93,15 +91,16 @@ class Api::CalendarsController < ApplicationController
 				end
 			end
 		end
-		render json: { message: json_success }
-		# redirect_to action: "show"
+		# render json: { message: json_success }
+		redirect_to action: "show"
 	end
 
 	def show
 		@user = current_user
-		@all_events = Event.all
-		# @all_attendees = Attendee.all
-		render 'index.html.erb'
+		@events = Event.all
+		@attendees = Attendee.all
+		# render 'index.html.erb'
+		render 'index.json.jbuilder'
 	end
 
 end

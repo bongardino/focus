@@ -9,4 +9,15 @@ class Event < ApplicationRecord
 			0
 		end
 	end
+
+	def responses
+		attendees = []
+		attendee_events.each do |attendee|
+			# binding.pry
+			email = Attendee.find(attendee.attendee_id).email
+			status = attendee.status
+			attendees << { email => status }
+		end
+		attendees
+	end
 end

@@ -1,12 +1,6 @@
 <%= column_chart Event.group_by_day_of_week(:start_time, format: "%a").count, download: true %>
 <br>
 <h1> This week : </h1>
-<div class="input-group date" data-provide="datepicker">
-    <input type="text" class="form-control">
-    <div class="input-group-addon">
-        <span class="glyphicon glyphicon-th"></span>
-    </div>
-</div>
 <hr>
 <hr>
 <hr>
