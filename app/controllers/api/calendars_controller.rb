@@ -56,7 +56,7 @@ class Api::CalendarsController < ApplicationController
 				new_event = Event.find_by(uid: event.id)
 			else
 				new_event = Event.new(
-					start_time: event.start.date_time,
+					start_time: event.start.date_time,																	# extract nested loops to methods, evaluate the decision tree
 					end_time: event.end.date_time,
 					creator: event.creator.email,
 					created: event.created,
