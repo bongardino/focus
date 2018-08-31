@@ -8,6 +8,8 @@
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+  <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
   <script src="index.js" defer></script>
 </head>
 <body>
@@ -58,10 +60,8 @@
 </body>
 </html>
 
-<template id="home-page">
+<template id="#chart-page">
   <div class="vue-component">
-
-    <h1>{{ message }}</h1>
-
+    {{ renderChart }}
   </div>
 </template>
