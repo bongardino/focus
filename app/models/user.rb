@@ -14,7 +14,7 @@ class User < ApplicationRecord
   	user.email = auth.info.email.presence
     user.token = auth.credentials.token
     user.refresh_token = auth.credentials.refresh_token
-  	image_url = auth.info.image
+  	user.image_url = auth.info.image
   	user.save
 
   	user

@@ -9,25 +9,50 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<!-- Datepicker -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" integrity="sha256-9w7XtQnqRDvThmsQHfLmXdDbGasYsSjF6FSXrDh7F6g=" crossorigin="anonymous">
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
     <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/#">Time Cop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/calendars/show">Go!</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Auth
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/users/auth/google_oauth2">Log In</a>
+                <a class="dropdown-item" href="/users/sign_out">Log Out</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/api/calendars">Rebuild</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">
+                <% if current_user.presence %>
+                  <%= p "#{current_user.id} #{current_user.first_name} #{current_user.last_name}" %>
+                <% end %> 
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <!-- Stuff loads -->
       <%= yield %>
-      <p><%= link_to "Sign in", user_google_oauth2_omniauth_authorize_path %></p>
-      <p><%= link_to "Sign out", destroy_user_session_path, method: 'delete' %></p>
-      <p><%= link_to "Rebuild", '/api/calendars', method: 'get' %></p>
-      <p><%= link_to "User Show Page", '/api/calendars/show', method: 'get' %></p>
-      <% if current_user.presence %>
-        <p><%= p current_user.id %></p>
-        <p><%= p current_user.first_name %></p>
-        <p><%= p current_user.last_name %></p>
-      <% end %> 
     </div>
+    <p class="notice" style="text-align:center"><%= notice %></p>
+    <p class="alert" style="text-align:center"><%= alert %></p>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

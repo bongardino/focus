@@ -41,13 +41,11 @@ class Api::CalendarsController < ApplicationController
 	end
 
 	def clean_slate
-		# get rid of this, keep all your events
-			# attendee_events
-		# Event.destroy_all
-		# Attendee.destroy_all
+		Event.where("user_id = ?", current_user.id).destroy_all
+		Attendee.destroy_all
 	end
 
-	def index
+	def build
 		# clean_slate
 
 		json_success = []
@@ -92,7 +90,16 @@ class Api::CalendarsController < ApplicationController
 			end
 		end
 		# render json: { message: json_success }
-		redirect_to action: "show"
+		# redirect_to action: "show"
+	end
+
+	def index
+		build
+		@user = current_user
+		@events = Event.where("user_id = ?", current_user.id)
+		@attendees = Attendee.all
+		# render 'index.html.erb'
+		render 'index.json.jbuilder'
 	end
 
 	def show
