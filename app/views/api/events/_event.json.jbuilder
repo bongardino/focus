@@ -12,3 +12,4 @@ json.uid event.uid
 json.user_id event.user_id
 json.user_uid event.user_uid
 json.attendees event.attendees
+json.one_to_one event.one_to_one?
