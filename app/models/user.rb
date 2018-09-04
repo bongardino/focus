@@ -25,7 +25,9 @@ class User < ApplicationRecord
     emails = Hash.new(0)
     events.each do |event|
       event.attendees.each do |attendee|
-        emails[ attendee.email ] += 1
+        if !attendee.email.include? "resource"
+          emails[ attendee.email ] += 1
+        end
       end
     end
     emails
@@ -54,7 +56,33 @@ class User < ApplicationRecord
   end
 
   def busy_days
-    events.group_by_day(:start_time, format: "%A").count
+    # this skips days with no events.  Its way less code but it makes for inconsistant graphs.
+    # events.group_by_day(:start_time, format: "%A").count
+    week = {
+      Monday: 0,
+      Tuesday: 0,
+      Wednesday: 0,
+      Thursday: 0,
+      Friday: 0
+    }
+
+    events.each do |event|
+      if event.start_time.presence
+        if event.start_time.monday?
+          week[:Monday] += 1
+        elsif event.start_time.tuesday?
+          week[:Tuesday] += 1
+        elsif event.start_time.wednesday?
+          week[:Wednesday] += 1
+        elsif event.start_time.thursday?
+          week[:Thursday] += 1
+        elsif event.start_time.friday?
+          week[:Friday] += 1
+        end
+      end
+    end
+
+    week
   end
 
   def durations

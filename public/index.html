@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="/#">Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="/#/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/api/calendars/show">Go!</a>
@@ -37,6 +37,28 @@
                 <a class="dropdown-item" href="/users/sign_out">Log Out</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/api/calendars">Rebuild</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Insights
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/#/day">Days</a>
+                <a class="dropdown-item" href="/#/">Durations</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/#/people">People</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Range
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/users/auth/google_oauth2">Week</a>
+                <a class="dropdown-item" href="/users/sign_out">Month</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/api/calendars">EVAR!</a>
               </div>
             </li>
             <li class="nav-item">
@@ -60,19 +82,25 @@
 </body>
 </html>
 
+<template id="home-page">
+  <div class="vue-component">
+
+    <h1>{{ message }}</h1>
+
+    <li v-for="(value, key) in people">
+      {{ key }}: {{ value }}
+    </li>
+
+  </div>
+</template>
+
 <template id="#duration-page">
   <div class="vue-component">
     {{ renderChart }}
   </div>
 </template>
 
-<template id="#time-page">
-  <div class="vue-component">
-    {{ renderChart }}
-  </div>
-</template>
-
-<template id="#test-page">
+<template id="#day-page">
   <div class="vue-component">
     {{ renderChart }}
   </div>

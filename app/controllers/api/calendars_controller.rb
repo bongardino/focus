@@ -41,7 +41,7 @@ class Api::CalendarsController < ApplicationController
 		# Date.tomorrow.end_of_week(:friday)
 		# today.at_end_of_month
 		# now = Time.now.iso8601
-  # 	one_week = (Time.now + (1*7*24*60*60)).to_datetime.iso8601
+	  # one_week = (Time.now + (1*7*24*60*60)).to_datetime.iso8601
 
 		response = service.list_events(
 			calendar_id,

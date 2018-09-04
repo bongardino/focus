@@ -4,25 +4,20 @@ var HomePage = {
   template: "#home-page",
   data: function() {
     return {
-      message: [],
-      calendars: []
+      message: "HomePage",
+      people: {email: "", count: ""}
     };
   },
   created: function() {
-    // axios.get('/api/users/show').then(function(response) {
-    //   console.log(response.data);
-    //   this.message = response.data;
-    // }.bind(this));
-    // axios.get('/api/calendars').then(function(response) {
-    //   console.log(response.data);
-    //   this.calendars = response.data;
-    // }.bind(this));
+    axios.get('/api/users/show').then(function(response) {
+      console.log(response.data);
+      console.log(response.data.attendees_tally);
+      this.people = response.data.attendees_tally;
+    }.bind(this));
   },
   methods: {},
   computed: {}
 };
-
-
 
 var Duration = {
   template: "#duration-page",
@@ -80,8 +75,8 @@ var Duration = {
   }
 }
 
-var Time = {
-  template: "#time-page",
+var Day = {
+  template: "#day-page",
   extends: VueChartJs.Bar,
   data: function() {
     return {
@@ -139,7 +134,9 @@ var Time = {
 var router = new VueRouter({
   routes: [
   { path: "/", component: Duration },
-  { path: "/time", component: Time }
+  // { path: "/people", component: People },
+  { path: "/home", component: HomePage },
+  { path: "/day", component: Day }
   ],
   scrollBehavior: function(to, from, savedPosition) {
     return { x: 0, y: 0 };
