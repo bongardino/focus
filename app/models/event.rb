@@ -13,11 +13,14 @@ class Event < ApplicationRecord
 	def responses
 		attendees = []
 		attendee_events.each do |attendee|
-			# binding.pry
 			email = Attendee.find(attendee.attendee_id).email
 			status = attendee.status
 			attendees << { email => status }
 		end
 		attendees
+	end
+
+	def one_to_one?
+		attendees.count == 2 || attendees.count == 3 
 	end
 end

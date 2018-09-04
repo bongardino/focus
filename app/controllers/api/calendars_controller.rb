@@ -15,6 +15,15 @@ class Api::CalendarsController < ApplicationController
     )
   end
 
+	def auth
+	  # Initialize Google Calendar API
+	  service = Google::Apis::CalendarV3::CalendarService.new
+	  # Use google keys to authorize
+	  service.authorization = google_secret.to_authorization
+	  # Request for a new aceess token just incase it expired
+	  service.authorization.refresh!
+	end
+
 	def get_events
 	  # Initialize Google Calendar API
 	  service = Google::Apis::CalendarV3::CalendarService.new
@@ -25,29 +34,27 @@ class Api::CalendarsController < ApplicationController
 
 		calendar_id = 'primary'
 
-		now = Time.now.iso8601
-  	one_week = (Time.now + (1*7*24*60*60)).to_datetime.iso8601
+		today = Date.today # Today's date
+		# today.at_beginning_of_week.to_datetime.iso8601
+		# today.at_end_of_week.to_datetime.iso8601
+
+		# today.at_end_of_month
+		# now = Time.now.iso8601
+  # 	one_week = (Time.now + (1*7*24*60*60)).to_datetime.iso8601
 
 		response = service.list_events(
 			calendar_id,
 			max_results: nil,
 		 	single_events: true,
 		 	order_by: 'startTime',
-			time_min: Time.now.iso8601,
-			time_max: (Time.now + (1*7*24*60*60)).to_datetime.iso8601
+			time_min: today.at_beginning_of_week.to_datetime.iso8601,
+			time_max: today.at_end_of_week.to_datetime.iso8601
 			)
 
 		response.items
 	end
 
-	def clean_slate
-		Event.where("user_id = ?", current_user.id).destroy_all
-		Attendee.destroy_all
-	end
-
 	def build
-		# clean_slate
-
 		json_success = []
 		get_events.each do |event|
 			if !Event.find_by(uid: event.id).nil?																		# replace this with find or create by, to update existing events instead of skipping them entirely
@@ -103,6 +110,7 @@ class Api::CalendarsController < ApplicationController
 	end
 
 	def show
+		auth
 		@user = current_user
 		@events = Event.all
 		@attendees = Attendee.all

@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+def clean_slate
+	Event.where("user_id = ?", current_user.id).destroy_all
+	Attendee.destroy_all
+	AttendeeEvent.destroy_all
+end
+
+clean_slate

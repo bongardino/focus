@@ -12,3 +12,6 @@ json.updated_at user.updated_at
 json.attendees_tally user.attendees_tally
 json.total_attendees user.total_attendees
 json.total_hours user.total_hours
+
+json.busy_days user.busy_days
+json.durations user.durations
