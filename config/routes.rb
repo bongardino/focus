@@ -17,5 +17,5 @@ Rails.application.routes.draw do
     get '/users/show' => 'users#show'
   end
 
-  root to: "home#show"
+  root to: "static#index"
 end

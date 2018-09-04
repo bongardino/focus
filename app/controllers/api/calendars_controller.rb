@@ -35,21 +35,19 @@ class Api::CalendarsController < ApplicationController
 		calendar_id = 'primary'
 
 		today = Date.today # Today's date
-		# today.at_beginning_of_week.to_datetime.iso8601
-		# today.at_end_of_week.to_datetime.iso8601
-		# Date.yesterday.beginning_of_week(:thursday)
-		# Date.tomorrow.end_of_week(:friday)
-		# today.at_end_of_month
+		week_start = today.at_beginning_of_week.to_datetime.iso8601
+		week_end = today.at_end_of_week.to_datetime.iso8601
+		month_start = today.at_beginning_of_month.to_datetime.iso8601
+		month_end = today.at_end_of_month.to_datetime.iso8601
 		# now = Time.now.iso8601
-	  # one_week = (Time.now + (1*7*24*60*60)).to_datetime.iso8601
 
 		response = service.list_events(
 			calendar_id,
 			max_results: nil,
 		 	single_events: true,
 		 	order_by: 'startTime',
-			time_min: today.at_beginning_of_week.to_datetime.iso8601,
-			time_max: today.at_end_of_week.to_datetime.iso8601
+			time_min: week_start,
+			time_max: week_end
 			)
 
 		response.items
