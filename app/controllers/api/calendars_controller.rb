@@ -37,7 +37,8 @@ class Api::CalendarsController < ApplicationController
 		today = Date.today # Today's date
 		# today.at_beginning_of_week.to_datetime.iso8601
 		# today.at_end_of_week.to_datetime.iso8601
-
+		# Date.yesterday.beginning_of_week(:thursday)
+		# Date.tomorrow.end_of_week(:friday)
 		# today.at_end_of_month
 		# now = Time.now.iso8601
   # 	one_week = (Time.now + (1*7*24*60*60)).to_datetime.iso8601
