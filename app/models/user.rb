@@ -21,16 +21,17 @@ class User < ApplicationRecord
   end
 
   def attendees_tally
-      ## Hash count mebe?
+    user_email = email
     emails = Hash.new(0)
     events.each do |event|
       event.attendees.each do |attendee|
         if !attendee.email.include? "resource"
-          emails[ attendee.email ] += 1
+          emails[attendee.email] += 1
         end
       end
     end
-    emails
+    emails.delete(email)
+    emails.sort_by {|_key, value| value}.reverse.to_h
   end
 
   def total_attendees
@@ -40,11 +41,6 @@ class User < ApplicationRecord
     end
     total
   end
-
-  # def token_refresh
-  #   User.find_by uid: uid
-  #   user.refresh_token = auth.credentials.refresh_token
-  # end
 
   def total_hours
     hours = 0
@@ -67,7 +63,7 @@ class User < ApplicationRecord
     }
 
     events.each do |event|
-      if event.start_time.presence
+      if event.start_time.presence && !event.one_to_one?
         if event.start_time.monday?
           week[:Monday] += 1
         elsif event.start_time.tuesday?
@@ -113,8 +109,32 @@ class User < ApplicationRecord
     week
   end
 
-  # def events_by_uid
-  # 	Event.where(user_uid: uid)
-  # end
+  def one_to_ones
+    week = {
+      Monday: 0,
+      Tuesday: 0,
+      Wednesday: 0,
+      Thursday: 0,
+      Friday: 0
+    }
+
+    events.each do |event|
+      if event.start_time.presence && event.one_to_one?
+        if event.start_time.monday?
+          week[:Monday] += 1
+        elsif event.start_time.tuesday?
+          week[:Tuesday] += 1
+        elsif event.start_time.wednesday?
+          week[:Wednesday] += 1
+        elsif event.start_time.thursday?
+          week[:Thursday] += 1
+        elsif event.start_time.friday?
+          week[:Friday] += 1
+        end
+      end
+    end
+
+    week
+  end
 
 end

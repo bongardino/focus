@@ -21,7 +21,7 @@ var HomePage = {
 
 var Duration = {
   template: "#duration-page",
-  extends: VueChartJs.Bar,
+  extends: VueChartJs.Line,
   data: function() {
     return {
       days: [],
@@ -41,6 +41,8 @@ var Duration = {
           {
             label: 'Time in Meeting Per Day',
             backgroundColor: '#191970',
+            fill: false,
+            lineTension: 0,
             data: this.count,
           }
         ]
@@ -81,7 +83,8 @@ var Day = {
   data: function() {
     return {
       days: [],
-      count: []
+      count: [],
+      one_to_ones: []
     }
   },
   mounted () {
@@ -91,13 +94,24 @@ var Day = {
         this.days.push(day);
         this.count.push(response.data.busy_days[day]);
       };
+      console.log(response.data.one_to_ones);
+      for (var day in response.data.one_to_ones){
+        this.one_to_ones.push(response.data.one_to_ones[day]);
+      };
       this.renderChart({
         labels: this.days,
         datasets: [
           {
-            label: 'Meetings Per Day',
+            label: 'One to Ones',
+            backgroundColor: 'rgba(42,203,211,1)',
+            data: this.one_to_ones,
+            borderWidth: 8
+          },
+          {
+            label: 'Other Meetings',
             backgroundColor: '#191970',
             data: this.count,
+            borderWidth: 8
           }
         ]
       },
@@ -114,7 +128,7 @@ var Day = {
           "yAxes":[{
             "ticks":{
               "beginAtZero":true,
-              "min": 0
+              "min": 0,
             },
             "stacked":true,
             "position": 'left',
@@ -134,7 +148,6 @@ var Day = {
 var router = new VueRouter({
   routes: [
   { path: "/", component: Duration },
-  // { path: "/people", component: People },
   { path: "/home", component: HomePage },
   { path: "/day", component: Day }
   ],

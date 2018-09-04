@@ -15,3 +15,4 @@ json.total_hours user.total_hours
 
 json.busy_days user.busy_days
 json.durations user.durations
+json.one_to_ones user.one_to_ones
