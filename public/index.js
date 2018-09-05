@@ -39,7 +39,7 @@ var Duration = {
         labels: this.days,
         datasets: [
           {
-            label: 'Time in Meeting Per Day',
+            label: 'Hours spent in meetings',
             backgroundColor: '#191970',
             fill: false,
             lineTension: 0,
