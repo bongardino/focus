@@ -37,6 +37,10 @@ gem 'figaro'
 
 gem 'devise'
 
+gem 'bootstrap', '>= 4.1.3'
+
+gem 'bootstrap-sass'
+
 gem 'omniauth-google-oauth2'
 
 gem 'google-api-client', require: 'google/apis/calendar_v3'
