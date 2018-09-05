@@ -3,8 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>My App</title>
-  <!-- Bootstrap CSS -->
-<!--   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+  <!-- <link rel="stylesheet" href="bootstrap.min.css"> -->
+  <!-- <script type="text/javascript" src=vue.js"></script> -->
+  <!-- <script type="text/javascript" src=vue-router.js"></script> -->
+  <!-- <script type="text/javascript" src=axios.js"></script> -->
+  <!-- <script type="text/javascript" src=Chart.min.js"></script> -->
+  <!-- <script type="text/javascript" src=vue-chartjs.min.js"></script> -->
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans|Ubuntu" rel="stylesheet"> -->
+  <!-- <link rel="stylesheet" href="bootstrap4-pleasant.min.css"> -->
+  <!-- <script src="index.js" defer></script> -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
@@ -19,7 +29,7 @@
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/#">
-          <img src="ff-logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+          <img src="logo-rw.png" width="30" height="30" class="d-inline-block align-top" alt="">
           rewind
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,13 +100,12 @@
     <!-- Footer -->
   </div>
 
-  <script src="jquery-3.3.1.slim.min.js">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<!--   <script src="jquery-3.3.1.slim.min.js"></script>
-  <script src="popper.min.js"></script>
-  <script src="bootstrap.min.js"></script> -->
+  <!-- <script type="text/javascript" src="jquery-3.3.1.slim.min.js"></script> -->
+  <!-- <script type="text/javascript" src="popper.min.js"></script> -->
+  <!-- <script type="text/javascript" src="bootstrap.min.js"></script> -->
 </body>
 </html>
 
@@ -118,6 +127,14 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </template>
+
+  <template id="landing-page">
+    <div class="vue-component">
+      <br>
+      <br>
+      <center>{{ message }}</center>
     </div>
   </template>
 

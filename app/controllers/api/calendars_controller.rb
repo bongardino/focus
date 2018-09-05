@@ -46,8 +46,8 @@ class Api::CalendarsController < ApplicationController
 			max_results: nil,
 		 	single_events: true,
 		 	order_by: 'startTime',
-			time_min: week_start,
-			time_max: week_end
+			time_min: month_start,
+			time_max: month_end
 			)
 
 		response.items

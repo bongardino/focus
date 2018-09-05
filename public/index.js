@@ -13,6 +13,17 @@ var StartPage = {
   computed: {}
 };
 
+var LandingPage = {
+  template: "#landing-page",
+  data: function() {
+    return {
+      message: "Nice! 🙌 Pick an Insight"
+    };
+  },
+  created: function() {},
+  methods: {},
+  computed: {}
+};
 
 var FolksPage = {
   template: "#folks-page",
@@ -161,7 +172,8 @@ var Day = {
 
 var router = new VueRouter({
   routes: [
-  { path: "/", component: StartPage },
+  { path: "/", component: LandingPage },
+  { path: "/start", component: StartPage },
   { path: "/durations", component: Duration },
   { path: "/people", component: FolksPage },
   { path: "/day", component: Day }
