@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>My App</title>
   <!-- Bootstrap CSS -->
-<!--   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
   <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.js"></script>
@@ -18,16 +18,19 @@
 <body>
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/#">
-          <img src="ff-logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-          rewind
-        </a>
+        <a class="navbar-brand" href="/#">L</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/#/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/api/calendars/show">Go!</a>
+            </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Auth
@@ -45,9 +48,9 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/#/day">Days</a>
-                <a class="dropdown-item" href="/#/durations">Durations</a>
+                <a class="dropdown-item" href="/#/">Durations</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/#/people">People</a>
+                <a class="dropdown-item" href="/#/home">People</a>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -62,47 +65,30 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="/api/calendars/show">
-                RAW!
+              <a class="nav-link disabled" href="#">
+                User Info
               </a>
             </li>
           </ul>
         </div>
       </nav>
-      <br>
     <div id="vue-app">
 
       <router-view></router-view>
 
     </div>
-    <br>
-    <br>
-    <!-- Footer -->
-    <footer class="page-footer font-small blue">
-
-      <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">
-        <a href="https://www.github.com/bongardino/focus"> contribute</a>
-      </div>
-      <!-- Copyright -->
-
-    </footer>
-    <!-- Footer -->
   </div>
 
   <script src="jquery-3.3.1.slim.min.js">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<!--   <script src="jquery-3.3.1.slim.min.js"></script>
-  <script src="popper.min.js"></script>
-  <script src="bootstrap.min.js"></script> -->
 </body>
 </html>
 
 <div class="container">
 
-  <template id="folks-page">
+  <template id="home-page">
     <div class="vue-component">
       <table class="table table-hover table-striped">
         <thead class="thead-dark">
@@ -121,24 +107,16 @@
     </div>
   </template>
 
-  <template id="start-page">
-    <div class="vue-component">
-      <br>
-      <br>
-      <center>{{ message }}</center>
-    </div>
-  </template>
+<template id="#duration-page">
+  <div class="vue-component">
+    {{ renderChart }}
+  </div>
+</template>
 
-  <template id="duration-page">
-    <div class="vue-component">
-      {{ renderChart }}
-    </div>
-  </template>
-
-  <template id="day-page">
-    <div class="vue-component">
-      {{ renderChart }}
-    </div>
-  </template>
+<template id="#day-page">
+  <div class="vue-component">
+    {{ renderChart }}
+  </div>
+</template>
 
 </div>

@@ -1,10 +1,24 @@
 /* global Vue, VueRouter, axios */
 
-var HomePage = {
-  template: "#home-page",
+
+var StartPage = {
+  template: "#start-page",
   data: function() {
     return {
-      message: "HomePage",
+      message: "Hi 👋 Log in why don't you?"
+    };
+  },
+  created: function() {},
+  methods: {},
+  computed: {}
+};
+
+
+var FolksPage = {
+  template: "#folks-page",
+  data: function() {
+    return {
+      message: "folks-page",
       people: {email: "", count: ""}
     };
   },
@@ -147,8 +161,9 @@ var Day = {
 
 var router = new VueRouter({
   routes: [
-  { path: "/", component: Duration },
-  { path: "/home", component: HomePage },
+  { path: "/", component: StartPage },
+  { path: "/durations", component: Duration },
+  { path: "/people", component: FolksPage },
   { path: "/day", component: Day }
   ],
   scrollBehavior: function(to, from, savedPosition) {
