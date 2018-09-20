@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :api do
     get '/calendars/show' => 'calendars#show'
     get '/calendars' => 'calendars#index'
+    get '/calendars/month' => 'calendars#index_month'
 
     get '/events' => 'events#index'
     get '/events/:id' => 'events#show'

@@ -17,7 +17,7 @@ var LandingPage = {
   template: "#landing-page",
   data: function() {
     return {
-      message: "Nice! 🙌 Pick an Insight"
+      message: "Nice! 🙌 Pick a range, then an insight."
     };
   },
   created: function() {},
